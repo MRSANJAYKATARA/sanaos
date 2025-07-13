@@ -13,7 +13,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 # --- Configuration ---
-TOKEN = "8040444270:AAGfxIY5ijJcvBVn530QHqgBSYSTWeOfCpY"
+TOKEN = "7602203757:AAHSkrZ0-E1ynYydZ0XJvafu7VBvhBIm4tM"
 CHANNEL_ID = "@whitehackerai"
 WINGO_URL = "https://zdj6.wingoanalyst.com/#/wingo_30s"
 

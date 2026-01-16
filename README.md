@@ -1,4 +1,5 @@
-# Wingo AI Bot 🎯
+# Dk win 
+Wingo AI Bot 🎯
 
 Telegram AI bot for WINGO 1M prediction game.  
 It fetches live data, makes predictions, and posts results to a Telegram channel.

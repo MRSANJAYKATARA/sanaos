@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SANA PRO 2.0</string>
+    <string name="accessibility_desc">SANA screen reader and scroll assistant</string>
+
+    <string name="nav_home">Home</string>
+    <string name="nav_history">History</string>
+    <string name="nav_settings">Settings</string>
+
+    <string name="status_offline">OFFLINE</string>
+    <string name="status_listening">LISTENING</string>
+    <string name="status_thinking">THINKING</string>
+    <string name="status_speaking">SPEAKING</string>
+
+    <string name="sana_version">v2.0</string>
+    <string name="sana_name">SANA</string>
+</resources>

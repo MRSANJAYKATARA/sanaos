@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bg_primary">#050508</color>
+    <color name="glass_white_4">#0AFFFFFF</color>
+    <color name="glass_white_8">#14FFFFFF</color>
+    <color name="glass_white_15">#26FFFFFF</color>
+
+    <color name="neon_cyan">#4CC9F0</color>
+    <color name="neon_pink">#F72585</color>
+    <color name="neon_green">#00FF88</color>
+    <color name="neon_yellow">#E2FF00</color>
+    <color name="neon_purple">#7209B7</color>
+
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#AAB0C6</color>
+    <color name="offline_grey">#8A8F9E</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent">#00000000</color>
+</resources>

@@ -42,12 +42,10 @@ class SanaAccessibilityService : AccessibilityService() {
     fun scrollDown(targetNode: AccessibilityNodeInfo? = null) {
         val node = targetNode ?: rootInActiveWindow
         if (node?.performAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD) == true) return
-        performGlobalAction(GLOBAL_ACTION_SCROLL_FORWARD)
     }
 
     fun scrollUp(targetNode: AccessibilityNodeInfo? = null) {
         val node = targetNode ?: rootInActiveWindow
         if (node?.performAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD) == true) return
-        performGlobalAction(GLOBAL_ACTION_SCROLL_BACKWARD)
     }
 }

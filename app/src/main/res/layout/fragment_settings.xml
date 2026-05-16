@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/bg_primary">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <EditText android:id="@+id/etGeminiKey" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Gemini API Key" android:background="@drawable/bg_input_field" android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"/>
+        <EditText android:id="@+id/etElevenKey" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="10dp" android:hint="ElevenLabs API Key" android:background="@drawable/bg_input_field" android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"/>
+
+        <TextView
+            android:id="@+id/btnSaveKeys"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/bg_button_primary"
+            android:gravity="center"
+            android:text="SAVE KEYS"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+
+        <EditText android:id="@+id/etUserName" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="16dp" android:hint="Your Name" android:background="@drawable/bg_input_field" android:textColor="@color/text_primary" android:textColorHint="@color/text_secondary"/>
+
+        <Switch
+            android:id="@+id/switchLiveMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Live Mode"
+            android:textColor="@color/text_primary"/>
+
+        <RadioGroup
+            android:id="@+id/rgCallMode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <RadioButton android:id="@+id/rbAnnounceOnly" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Announce Only" android:textColor="@color/text_primary"/>
+            <RadioButton android:id="@+id/rbReceiveReject" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Receive + Reject" android:textColor="@color/text_primary"/>
+        </RadioGroup>
+
+        <CheckBox
+            android:id="@+id/chipHinglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/selector_lang_chip"
+            android:button="@null"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="8dp"
+            android:text="Hinglish"
+            android:textColor="@color/text_primary"/>
+
+        <CheckBox
+            android:id="@+id/chipEnglish"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/selector_lang_chip"
+            android:button="@null"
+            android:paddingHorizontal="14dp"
+            android:paddingVertical="8dp"
+            android:text="English"
+            android:textColor="@color/text_primary"/>
+
+    </LinearLayout>
+</ScrollView>

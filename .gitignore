@@ -1,0 +1,16 @@
+# Gradle
+.gradle/
+**/build/
+
+# Local environment
+local.properties
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store
+
+# Wrapper binary (regenerate locally with: gradle wrapper)
+gradle/wrapper/gradle-wrapper.jar

@@ -1,17 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SANA PRO 2.0</string>
-    <string name="accessibility_desc">SANA screen reader and scroll assistant</string>
+    <string name="app_name">SANA PRO</string>
+    <string name="app_description">AI Voice Assistant for Wingo Prediction</string>
 
-    <string name="nav_home">Home</string>
-    <string name="nav_history">History</string>
-    <string name="nav_settings">Settings</string>
+    <!-- Accessibility Descriptions -->
+    <string name="accessibility_mic_button">Microphone button to start listening</string>
+    <string name="accessibility_start_button">Start SANA voice assistant</string>
+    <string name="accessibility_stop_button">Stop SANA voice assistant</string>
+    <string name="accessibility_waveform">Audio waveform visualization</string>
+    <string name="accessibility_status_pill">Current assistant status indicator</string>
 
-    <string name="status_offline">OFFLINE</string>
-    <string name="status_listening">LISTENING</string>
-    <string name="status_thinking">THINKING</string>
-    <string name="status_speaking">SPEAKING</string>
+    <!-- Home Fragment -->
+    <string name="home_tab">Home</string>
+    <string name="start_button_text">START</string>
+    <string name="active_button_text">ACTIVE</string>
+    <string name="listening">Listening...</string>
+    <string name="thinking">Thinking...</string>
+    <string name="speaking">Speaking...</string>
+    <string name="idle">Idle</string>
 
-    <string name="sana_version">v2.0</string>
-    <string name="sana_name">SANA</string>
+    <!-- History Fragment -->
+    <string name="history_tab">History</string>
+    <string name="history_empty">No interaction history yet</string>
+
+    <!-- Settings Fragment -->
+    <string name="settings_tab">Settings</string>
+    <string name="language_preference">Language Preference</string>
+    <string name="language_hindi">Hindi</string>
+    <string name="language_english">English</string>
+    <string name="voice_settings">Voice Settings</string>
+    <string name="enable_notifications">Enable Notifications</string>
+    <string name="api_keys">API Keys</string>
+    <string name="gemini_api_key">Gemini API Key</string>
+    <string name="elevenlabs_api_key">ElevenLabs API Key</string>
+
+    <!-- Control Fragment -->
+    <string name="control_tab">Control</string>
+    <string name="quick_tools">Quick Tools</string>
+
+    <!-- File Manager Fragment -->
+    <string name="files_tab">Files</string>
+
+    <!-- Dialogs & Messages -->
+    <string name="permission_required">Permission Required</string>
+    <string name="permissions_denied">Some permissions were denied. SANA may not work correctly.</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="settings">Settings</string>
 </resources>

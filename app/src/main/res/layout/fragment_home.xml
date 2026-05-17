@@ -1,172 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:background="@color/bg_primary">
+    android:orientation="vertical"
+    android:background="@color/background"
+    android:padding="16dp">
 
-    <LinearLayout
+    <!-- Header: Date -->
+    <TextView
+        android:id="@+id/tvDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="May 17, 2026"
+        android:textColor="@color/text_secondary"
+        android:textSize="12sp"
+        android:gravity="end"
+        android:layout_marginBottom="24dp" />
+
+    <!-- Status Pill -->
+    <LinearLayout
+        android:id="@+id/statusPill"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_status_pill"
+        android:layout_marginBottom="32dp"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
 
         <TextView
-            android:id="@+id/tvGreeting"
+            android:id="@+id/statusText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello Boss"
+            android:text="@string/idle"
             android:textColor="@color/text_primary"
-            android:textSize="24sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="@color/text_secondary"
-            android:textSize="14sp"/>
-
-        <LinearLayout
-            android:id="@+id/statusPill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_status_pill"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <View
-                android:id="@+id/statusDot"
-                android:layout_width="8dp"
-                android:layout_height="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/offline_grey"/>
-
-            <TextView
-                android:id="@+id/statusText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/status_offline"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvAiName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/sana_name"
-            android:textColor="@color/text_primary"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
-
-        <TextView
-            android:id="@+id/tvAiVersion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/sana_version"
-            android:textColor="@color/text_secondary"
-            android:textSize="12sp"/>
-
-        <LinearLayout
-            android:id="@+id/waveformLayout"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <View android:id="@+id/bar1" android:layout_width="6dp" android:layout_height="20dp" android:layout_margin="4dp" android:background="@color/neon_cyan"/>
-            <View android:id="@+id/bar2" android:layout_width="6dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@color/neon_pink"/>
-            <View android:id="@+id/bar3" android:layout_width="6dp" android:layout_height="44dp" android:layout_margin="4dp" android:background="@color/neon_green"/>
-            <View android:id="@+id/bar4" android:layout_width="6dp" android:layout_height="32dp" android:layout_margin="4dp" android:background="@color/neon_yellow"/>
-            <View android:id="@+id/bar5" android:layout_width="6dp" android:layout_height="20dp" android:layout_margin="4dp" android:background="@color/neon_purple"/>
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvInstruction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="8dp"
-            android:text="Tap start to talk"
-            android:textColor="@color/text_secondary"/>
-
-        <LinearLayout
-            android:id="@+id/startBtn"
-            android:layout_width="180dp"
-            android:layout_height="56dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/bg_button_primary"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <View
-                android:id="@+id/btnDot"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
-                android:layout_marginEnd="8dp"
-                android:background="@color/white"/>
-
-            <TextView
-                android:id="@+id/btnText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="START"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textStyle="bold"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/cardLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_glass_card"
-            android:orientation="vertical"
-            android:padding="14dp">
-
-            <TextView
-                android:id="@+id/tvLocation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Location unavailable"
-                android:textColor="@color/text_primary"/>
-
-            <TextView
-                android:id="@+id/tvLocationTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:textColor="@color/text_secondary"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvEvents"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_marginTop="12dp"/>
-
-        <LinearLayout
-            android:id="@+id/cardSystem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/bg_glass_card"
-            android:orientation="vertical"
-            android:padding="14dp">
-
-            <TextView android:id="@+id/tvBattery" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_primary" android:text="Battery --"/>
-            <TextView android:id="@+id/tvRam" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textColor="@color/text_primary" android:text="RAM --"/>
-            <TextView android:id="@+id/tvStorage" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:textColor="@color/text_primary" android:text="Storage --"/>
-        </LinearLayout>
-
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
-</ScrollView>
+
+    <!-- Waveform Visualization -->
+    <com.sanaos.ui.WaveformView
+        android:id="@+id/waveformView"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Start/Stop Button -->
+    <LinearLayout
+        android:id="@+id/startBtn"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:orientation="horizontal"
+        android:background="@drawable/bg_button_primary"
+        android:gravity="center"
+        android:layout_marginBottom="24dp"
+        android:contentDescription="@string/accessibility_start_button">
+
+        <TextView
+            android:id="@+id/btnText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/start_button_text"
+            android:textColor="@color/text_primary"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Transcript RecyclerView -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Conversation"
+        android:textColor="@color/text_primary"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="12dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvTranscript"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
+
+</LinearLayout>

@@ -10,30 +10,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/history_tab"
+        android:text="@string/files_tab"
         android:textColor="@color/text_primary"
         android:textSize="20sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp" />
 
-    <!-- History RecyclerView -->
+    <!-- File Browser RecyclerView -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvHistory"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:clipToPadding="false"
-        android:paddingBottom="16dp" />
-
-    <!-- Empty State -->
-    <TextView
-        android:id="@+id/layoutHistoryEmpty"
+        android:id="@+id/rvFiles"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/history_empty"
-        android:textColor="@color/text_secondary"
-        android:textSize="14sp"
-        android:gravity="center"
-        android:visibility="gone" />
+        android:clipToPadding="false"
+        android:paddingBottom="16dp" />
 
 </LinearLayout>

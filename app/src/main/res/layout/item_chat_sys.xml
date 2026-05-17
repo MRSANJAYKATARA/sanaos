@@ -2,15 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:gravity="center"
+    android:orientation="horizontal"
+    android:gravity="center_horizontal"
     android:padding="8dp">
 
     <TextView
+        android:id="@+id/sysMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_status_pill"
-        android:padding="10dp"
         android:textColor="@color/text_secondary"
-        android:text="System message"/>
+        android:textSize="12sp"
+        android:gravity="center" />
 
 </LinearLayout>

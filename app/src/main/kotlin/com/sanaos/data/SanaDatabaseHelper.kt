@@ -47,7 +47,6 @@ class SanaDatabaseHelper(context: Context) : SQLiteOpenHelper(context, DB_NAME, 
         if (oldVersion < 2) {
             db.execSQL("ALTER TABLE contacts_memory ADD COLUMN priority INTEGER DEFAULT 50")
         }
-
         if (oldVersion < 3) {
             db.execSQL(
                 """

@@ -1,4 +1,0 @@
-python-telegram-bot[job-queue]==20.7
-selenium
-chromedriver-autoinstaller
-aiohttp

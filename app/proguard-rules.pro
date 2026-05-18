@@ -1,7 +1,6 @@
-# SANA PRO 2.0 ProGuard Rules
 -keep class com.sanaos.** { *; }
--dontwarn okhttp3.**
--dontwarn okio.**
--keep class okhttp3.** { *; }
--keepattributes Signature
+-keepclassmembers class com.sanaos.** { *; }
 -keepattributes *Annotation*
+# Keep OkHttp & Moshi/Gson models used via reflection
+-keep class okhttp3.** { *; }
+-keep class okio.** { *; }

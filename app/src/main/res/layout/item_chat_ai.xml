@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:gravity="start"
     android:padding="8dp">
 
@@ -22,6 +22,15 @@
             android:textColor="@color/neon_cyan"
             android:textSize="14sp"
             android:gravity="start" />
+
+        <TextView
+            android:id="@+id/aiTimestamp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_tertiary"
+            android:textSize="10sp"
+            android:gravity="start"
+            android:layout_marginTop="6dp" />
     </LinearLayout>
 
 </LinearLayout>

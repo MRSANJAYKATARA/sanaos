@@ -12,6 +12,10 @@ object SharedPrefsManager {
         const val ENABLE_NOTIFICATIONS = "enable_notifications"
         const val LAST_GPS_ADDRESS = "last_gps_address"
         const val SERVICE_ENABLED = "service_enabled"
+        // PHASE 10: Control switches state
+        const val FLASHLIGHT_STATE = "flashlight_state"
+        const val WIFI_STATE = "wifi_state"
+        const val BLUETOOTH_STATE = "bluetooth_state"
     }
 
     private fun getPrefs(context: Context): SharedPreferences {

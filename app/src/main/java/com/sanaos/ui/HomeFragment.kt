@@ -15,10 +15,15 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.sanaos.R
+import com.sanaos.data.SanaDatabaseHelper
 import com.sanaos.data.SharedPrefsManager
-import com.sanaos.service.SanaForegroundService
+import com.sanaos.engine.SanaBrain
+import com.sanaos.engine.IntentRouter
+import com.sanaos.engine.VocalEngine
+import com.sanaos.engine.SanaIntent
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.concurrent.thread
 
 class HomeFragment : Fragment() {
 
@@ -30,8 +35,12 @@ class HomeFragment : Fragment() {
     private lateinit var waveformView: WaveformView
     private lateinit var rvTranscript: RecyclerView
 
-    private val transcripts = mutableListOf<String>()
-    private val adapter = TranscriptAdapter(transcripts)
+    private val messages = mutableListOf<ChatMessage>()
+    private lateinit var adapter: TranscriptAdapter
+
+    private var sanaBrain: SanaBrain? = null
+    private var intentRouter: IntentRouter? = null
+    private var vocalEngine: VocalEngine? = null
 
     private val receiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -43,7 +52,7 @@ class HomeFragment : Fragment() {
                     }
                     SanaForegroundService.ACTION_TRANSCRIPT -> {
                         val text = intent.getStringExtra("transcript") ?: ""
-                        if (text.isNotBlank()) addTranscript(text)
+                        if (text.isNotBlank()) handleUserTranscript(text)
                     }
                     SanaForegroundService.ACTION_RMS -> {
                         val rms = intent.getFloatExtra("rms", 0f)
@@ -55,6 +64,8 @@ class HomeFragment : Fragment() {
             }
         }
     }
+
+    data class ChatMessage(val text: String, val isUser: Boolean, val timestamp: Long)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_home, container, false)
@@ -70,6 +81,7 @@ class HomeFragment : Fragment() {
         waveformView = view.findViewById(R.id.waveformView)
         rvTranscript = view.findViewById(R.id.rvTranscript)
 
+        adapter = TranscriptAdapter(messages)
         rvTranscript.layoutManager = LinearLayoutManager(requireContext())
         rvTranscript.adapter = adapter
 
@@ -82,6 +94,11 @@ class HomeFragment : Fragment() {
 
         val enabled = SharedPrefsManager.getBoolean(requireContext(), SharedPrefsManager.Keys.SERVICE_ENABLED, false)
         btnText.text = if (enabled) getString(R.string.active_button_text) else getString(R.string.start_button_text)
+
+        // Init engines
+        sanaBrain = SanaBrain(SharedPrefsManager.get(requireContext(), SharedPrefsManager.Keys.GEMINI_API_KEY, ""))
+        intentRouter = IntentRouter(requireContext())
+        vocalEngine = VocalEngine(requireContext())
     }
 
     override fun onStart() {
@@ -139,27 +156,113 @@ class HomeFragment : Fragment() {
         statusPill.setBackgroundColor(resources.getColor(colorRes, requireContext().theme))
     }
 
-    private fun addTranscript(text: String) {
-        transcripts.add(0, text)
+    private fun addMessage(text: String, isUser: Boolean) {
+        val msg = ChatMessage(text, isUser, System.currentTimeMillis())
+        messages.add(0, msg)
         adapter.notifyItemInserted(0)
         rvTranscript.scrollToPosition(0)
     }
 
-    // Simple transcript adapter showing user messages
-    private class TranscriptAdapter(private val data: List<String>) : RecyclerView.Adapter<TranscriptAdapter.VH>() {
-        class VH(itemView: View) : RecyclerView.ViewHolder(itemView) {
-            val tv: TextView = itemView.findViewById(R.id.userMessage)
+    private fun handleUserTranscript(text: String) {
+        // Add user message and persist, then process with SanaBrain -> IntentRouter -> VocalEngine
+        addMessage(text, true)
+        thread {
+            try {
+                // Persist user input
+                val db = SanaDatabaseHelper(requireContext())
+                db.insertHistory(text, "", "USER")
+
+                // Process with SanaBrain
+                val (intent, reply) = sanaBrain?.processQuery(text) ?: Pair(SanaIntent.Converse(text), "Boss, kuch gadbad ho gaya.")
+
+                // Route intent (may perform actions)
+                val featureResult = intentRouter?.route(intent)
+
+                // Persist AI reply
+                db.insertHistory(text, featureResult?.spokenResponse ?: reply, "AI")
+
+                // Update UI with AI reply
+                requireActivity().runOnUiThread {
+                    addMessage(featureResult?.spokenResponse ?: reply, false)
+                }
+
+                // Speak reply
+                vocalEngine?.speak(featureResult?.spokenResponse ?: reply)
+
+            } catch (e: Exception) {
+                android.util.Log.e("HOME_FRAG", "Handle transcript error: ${e.message}", e)
+            }
+        }
+    }
+
+    // Adapter supporting user and ai message layouts
+    private class TranscriptAdapter(private val data: List<ChatMessage>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+        companion object {
+            private const val TYPE_USER = 0
+            private const val TYPE_AI = 1
+            private const val TYPE_SYS = 2
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_user, parent, false)
-            return VH(view)
+        override fun getItemViewType(position: Int): Int {
+            val item = data[position]
+            return when {
+                item.isUser -> TYPE_USER
+                else -> TYPE_AI
+            }
         }
 
-        override fun onBindViewHolder(holder: VH, position: Int) {
-            holder.tv.text = data[position]
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+            return when (viewType) {
+                TYPE_USER -> {
+                    val v = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_user, parent, false)
+                    UserVH(v)
+                }
+                TYPE_AI -> {
+                    val v = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_ai, parent, false)
+                    AiVH(v)
+                }
+                else -> {
+                    val v = LayoutInflater.from(parent.context).inflate(R.layout.item_chat_sys, parent, false)
+                    SysVH(v)
+                }
+            }
+        }
+
+        override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+            val item = data[position]
+            val time = SimpleDateFormat("hh:mm a", Locale.getDefault()).format(Date(item.timestamp))
+            when (holder) {
+                is UserVH -> {
+                    holder.msg.text = item.text
+                    holder.ts.text = time
+                }
+                is AiVH -> {
+                    holder.msg.text = item.text
+                    holder.ts.text = time
+                }
+                is SysVH -> {
+                    holder.msg.text = item.text
+                    holder.ts.text = time
+                }
+            }
         }
 
         override fun getItemCount(): Int = data.size
+
+        class UserVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val msg: TextView = itemView.findViewById(R.id.userMessage)
+            val ts: TextView = itemView.findViewById(R.id.userTimestamp)
+        }
+
+        class AiVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val msg: TextView = itemView.findViewById(R.id.aiMessage)
+            val ts: TextView = itemView.findViewById(R.id.aiTimestamp)
+        }
+
+        class SysVH(itemView: View) : RecyclerView.ViewHolder(itemView) {
+            val msg: TextView = itemView.findViewById(R.id.sysMessage)
+            val ts: TextView = itemView.findViewById(R.id.sysTimestamp)
+        }
     }
 }
